@@ -385,8 +385,8 @@ export function getConsultaDeudaProducto(poolDB, cedula, callback) {
        " SUBSTRING(100 + EXTRACT(DAY FROM DD.fecvence) FROM 2 FOR 2) || '/' ||" +
        " EXTRACT(YEAR FROM DD.fecvence) */
 
-         var sql ="select SUBSTRING(100 + EXTRACT(MONTH FROM DD.fecvence) FROM 2 FOR 2) || '/' ||" +
-       " SUBSTRING(100 + EXTRACT(DAY FROM DD.fecvence) FROM 2 FOR 2) || '/' ||" +
+         var sql ="select SUBSTRING(100 + EXTRACT(DAY FROM DD.fecvence) FROM 2 FOR 2) || '/' ||" +
+       " SUBSTRING(100 + EXTRACT(MONTH FROM DD.fecvence) FROM 2 FOR 2) || '/' ||" +
        " EXTRACT(YEAR FROM DD.fecvence) FECVENCE," +
        " DD.DDOCUCUID, "+
        " t.terid,D.DOCUFINID,"+
@@ -422,7 +422,7 @@ export function getConsultaDeudaProducto(poolDB, cedula, callback) {
 " and d.codcomp||d.codprefijo||d.numero=?"+
 " and (dd.salcap> 0 or dd.salint>0 or saldto2>0)"+
 " group by 1,2,3,4,5,6,7,8,10,11,12,d.saldo,d.califiact,l.lineacreid,dd.nrocuota"+
-" ORDER BY 5,1"
+" ORDER BY 3||2||1"
 
           connection.query(sql,[terid,documento],
           function(err, id) {
@@ -1082,7 +1082,7 @@ export function getConsultaConcepto(poolDB, cedula, callback) {
                var listaConceptos = []
 
                 conceptos.map(function(concepto){
-                  
+
                    var resultados ={}
                    resultados.TERID = result[0].TERID
                    resultados.NOMBRE= result[0].NOMBRE
