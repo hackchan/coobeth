@@ -21,11 +21,11 @@ const app = express()
 const server = http.createServer(app)
 
 const port = process.env.PORT || 3002
-const database = process.env.MONGOLAB_URI || 'mongodb://appdb:coobethel2017@127.0.0.1:6667/coobethel'
-mongoose.connect(database, onDBConnect)
+//const database = process.env.MONGOLAB_URI || 'mongodb://appdb:coobethel2017@127.0.0.1:6667/coobethel'
+//mongoose.connect(database, onDBConnect)
 
 server.on('listening', onListening)
-
+server.listen(port)
   app.use(bodyParser.urlencoded({extended: true }))
   app.use(bodyParser.json())
   app.use(methodOverride())
@@ -48,7 +48,7 @@ server.on('listening', onListening)
  app.use('/coobethel',coobethel)
  app.use('/usuarios',usuario)
 
-
+/*
 function onDBConnect (err, res) {
   if (err) console.log(`ERROR: on connecting to database, ${err}`)
   else {
@@ -56,8 +56,11 @@ function onDBConnect (err, res) {
     console.log(`Connection established to Database`)
     server.listen(port)
   }
-}
+}*/
 
 function onListening () {
+  global.pool = poolFirebird
+  console.log(`Connection established to Database`)
+
   console.log(`Server listening on http://localhost:${port}`)
 }

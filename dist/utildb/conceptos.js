@@ -4,6 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var conceptos = {};
-conceptos.codigos = ["AP_JP"];
+conceptos.codigos = ["41", "AP_JP"];
 
 exports.default = conceptos;

@@ -57,11 +57,11 @@ var app = (0, _express2.default)();
 var server = _http2.default.createServer(app);
 
 var port = process.env.PORT || 3002;
-var database = process.env.MONGOLAB_URI || 'mongodb://appdb:coobethel2017@127.0.0.1:6667/coobethel';
-_mongoose2.default.connect(database, onDBConnect);
+//const database = process.env.MONGOLAB_URI || 'mongodb://appdb:coobethel2017@127.0.0.1:6667/coobethel'
+//mongoose.connect(database, onDBConnect)
 
 server.on('listening', onListening);
-
+server.listen(port);
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
 app.use((0, _methodOverride2.default)());
@@ -84,14 +84,19 @@ app.use(function (req, res, next) {
 app.use('/coobethel', _coobethel2.default);
 app.use('/usuarios', _usuario2.default);
 
-function onDBConnect(err, res) {
-  if (err) console.log('ERROR: on connecting to database, ' + err);else {
-    global.pool = _dbfirebird2.default;
-    console.log('Connection established to Database');
-    server.listen(port);
+/*
+function onDBConnect (err, res) {
+  if (err) console.log(`ERROR: on connecting to database, ${err}`)
+  else {
+    global.pool = poolFirebird
+    console.log(`Connection established to Database`)
+    server.listen(port)
   }
-}
+}*/
 
 function onListening() {
+  global.pool = _dbfirebird2.default;
+  console.log('Connection established to Database');
+
   console.log('Server listening on http://localhost:' + port);
 }
